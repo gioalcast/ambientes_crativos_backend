@@ -1,4 +1,5 @@
 import express from 'express';
+import clienteRoutes from './routes/clientes';
 
 const app = express();
 const port = 3000;
@@ -6,27 +7,9 @@ const port = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
-app.get('/prueba/:id', (req, res, next)=>{
+clienteRoutes(app)
 
-    console.log('Antes de la promesa')
-
-    const x = 10;
-    const promesa = new Promise ((resolve, reject) => {
-        if (x == 10){
-            resolve('Se resuelve promesa')
-        } else {
-            reject ('Promesa rechazada');
-        }
-    });
-
-    promesa.then((res) =>{
-        console.log (res);
-    }).catch(error => {
-        console.log(error)
-    });
-
-    console.log('Despues de la promesa')
-
+app.get('/prueba/:id', async(req, res, next)=>{
     res.status(201).json({message: "Datos creados"});
 });
 
