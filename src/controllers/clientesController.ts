@@ -1,6 +1,11 @@
+import executeQuery from "../services/mysql.service";
 
 const obtenerClientes= (req, res) =>{
-    res.send ('obtenerClientes');
+    executeQuery('SELECT * FROM clientes').then ((response) => {
+        res.json(response);
+    }).catch(error => {
+        res.status(500).send (error);
+    });
 }
 const obtenerCliente= (req, res) =>{
     res.send ('obtenerCliente');

@@ -1,8 +1,8 @@
 import express from 'express';
 import clienteRoutes from './routes/clientes';
+import config from './config/config';
 
 const app = express();
-const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
@@ -13,6 +13,7 @@ app.get('/prueba/:id', async(req, res, next)=>{
     res.status(201).json({message: "Datos creados"});
 });
 
-app.listen(port, () => {
-    return console.log(`Servidor corriendo sobre el puerto ${port}`)
+app.listen(config.PORT, () => {
+    return console.log(`Servidor corriendo sobre el puerto ${config.PORT}`)
 });
+
