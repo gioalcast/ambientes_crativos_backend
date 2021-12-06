@@ -1,15 +1,19 @@
 import executeQuery from "../services/mysql.service";
 
 const obtenerClientes= (req, res) =>{
-    executeQuery('SELECT * FROM clientes').then ((response) => {
-        res.json(response);
+    executeQuery('SELECT * FROM clientes').then (response => {
+        const data ={
+            message:`${response.length} datos encontrados`,
+            data: response.length > 0 ? response: null
+        }
+        res.json(data);
     }).catch(error => {
         res.status(500).send (error);
     });
 }
-const obtenerCliente= (req, res) =>{
-    res.send ('obtenerCliente');
-
+const obtenerCliente= async(req, res) =>{
+    const response = await executeQuery(`SELECT * FROM clientes WHERE idcliente = ${req.params.id}`);
+    res.send (response);
 }
 const agragarCliente= (req, res) =>{
     res.send ('agregarCliente');
